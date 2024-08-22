@@ -8,7 +8,7 @@ pygame.init()
 
 # вводим константы - окошко
 SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 800
+SCREEN_HEIGHT = 600
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 pygame.display.set_caption("Игра Тир")
 
@@ -28,13 +28,16 @@ target_y = random.randint (0, SCREEN_HEIGHT-target_height)
 # цвет фона
 color = (random.randint(0,255), random.randint(0,255),random.randint(0,255))
 
-# начальная скорость мишени
-target_speed_x = random.choice([-3, 3])
-target_speed_y = random.choice([-3, 3])
+# начальная скорость мишени (уменьшена в этой версии)
+target_speed_x = random.choice([-2, -1, 1, 2])
+target_speed_y = random.choice([-2, -1, 1, 2])
 
 # подсчет очков
 score = 0
 font = pygame.font.Font(None, 36)
+
+# задаем меньший шрифт для стартового текста
+small_font = pygame.font.Font(None, 28)
 
 # таймер
 time_limit = 30  # в секундах
@@ -43,8 +46,8 @@ start_time = None
 # функция для отображения текста в центре экрана
 def show_message(message, submessage=""):
     screen.fill((255, 255, 255))
-    message_text = font.render(message, True, (0, 0, 0))
-    submessage_text = font.render(submessage, True, (0, 0, 0))
+    message_text = small_font.render(message, True, (0, 0, 0))  # используем меньший шрифт
+    submessage_text = small_font.render(submessage, True, (0, 0, 0))
     screen.blit(message_text, (SCREEN_WIDTH//2 - message_text.get_width()//2, SCREEN_HEIGHT//2 - message_text.get_height()//2))
     screen.blit(submessage_text, (SCREEN_WIDTH//2 - submessage_text.get_width()//2, SCREEN_HEIGHT//2 + message_text.get_height()))
     pygame.display.update()
@@ -76,8 +79,9 @@ while running:
                score += 1  # увеличение счета
                target_x = random.randint(0, SCREEN_WIDTH - target_width)
                target_y = random.randint(0, SCREEN_HEIGHT - target_height)
-               target_speed_x = random.choice([-3, 3])
-               target_speed_y = random.choice([-3, 3])
+               target_speed_x = random.choice([-2, -1, 1, 2])  # уменьшенная скорость
+               target_speed_y = random.choice([-2, -1, 1, 2])  # уменьшенная скорость
+
    # движение мишени
    target_x += target_speed_x
    target_y += target_speed_y
@@ -116,9 +120,9 @@ while running:
                        start_time = time.time()
                        target_x = random.randint(0, SCREEN_WIDTH - target_width)
                        target_y = random.randint(0, SCREEN_HEIGHT - target_height)
-                       target_speed_x = random.choice([-3, 3])
-                       target_speed_y = random.choice([-3, 3])
-                       waiting = False
+                       target_speed_x = random.choice([-2, -1, 1, 2])  # уменьшенная скорость
+                       target_speed_y = random.choice([-2, -1, 1, 2])  # уменьшенная скорость
+                   waiting = False
    # обновление экрана
    pygame.display.update()
 
